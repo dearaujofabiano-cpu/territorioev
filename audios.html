@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Conteúdo - Território EV</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h2>Explore os Pilares do Território EV</h2>
+            <p>Clique em um dos temas abaixo para ouvir o conteúdo. Após ouvir, responda à pergunta final.</p>
+        </header>
+
+        <main id="content-grid">
+            <div class="content-card" data-audio-src="design.m4a" data-title="DESIGN">
+                <h3>DESIGN</h3>
+                <p>Identidade Visual, interior ousado e a tecnologia da central multimídia.</p>
+            </div>
+
+            <div class="content-card" data-audio-src="especificacoes.m4a" data-title="ESPECIFICAÇÕES TÉCNICAS">
+                <h3>ESPECIFICAÇÕES TÉCNICAS</h3>
+                <p>Desempenho, agilidade, boa autonomia para Uso Urbano, capacidade da bateria e carga rápida para viagens.</p>
+            </div>
+
+            <div class="content-card" data-audio-src="seguranca.m4a" data-title="RECURSOS DE SEGURANÇA">
+                <h3>RECURSOS DE SEGURANÇA</h3>
+                <p>Recursos básicos de segurança, sistemas de assistência ao trânsito e os Sistemas Avançados de Condução.</p>
+            </div>
+
+            <div class="content-card" data-audio-src="conforto.m4a" data-title="CONFORTO E CONVENIÊNCIA">
+                <h3>CONFORTO E CONVENIÊNCIA</h3>
+                <p>Silêncio e o conforto na rodagem, praticidade e tecnologias de acesso ao veículo e interior com conforto climático.</p>
+            </div>
+        </main>
+
+        <form id="response-form" class="response-section">
+            <label for="client-response">Quais são os diferenciais do BYD Yuan Plus e como devemos argumentá-los?</label>
+            <textarea id="client-response" name="entry.XXXXXX" rows="8" required placeholder="Digite sua análise aqui..."></textarea>
+            <input type="hidden" id="group-name-field" name="entry.YYYYYY">
+            <button type="submit" class="cta-button">Enviar Resposta</button>
+        </form>
+    </div>
+
+    <div id="audio-player-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content audio-modal">
+            <h2 id="audio-title"></h2>
+            <audio id="audio-player" controls></audio>
+            <button id="close-modal-button" class="cta-button">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        const audioModal = document.getElementById('audio-player-modal');
+        const audioPlayer = document.getElementById('audio-player');
+        const audioTitle = document.getElementById('audio-title');
+        const closeModalButton = document.getElementById('close-modal-button');
+        const form = document.getElementById('response-form');
+
+        document.querySelectorAll('.content-card').forEach(card => {
+            card.addEventListener('click', () => {
+                audioTitle.textContent = card.dataset.title;
+                audioPlayer.src = card.dataset.audioSrc;
+                audioModal.style.display = 'flex';
+                audioPlayer.play();
+            });
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+            audioModal.style.display = 'none';
+        });
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const groupName = localStorage.getItem('groupName');
+            document.getElementById('group-name-field').value = groupName || 'N/A';
+            
+            const formActionURL = 'URL_DO_SEU_FORMULARIO_AQUI/formResponse';
+            const formData = new FormData(form);
+
+            try {
+                await fetch(formActionURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: new URLSearchParams(formData)
+                });
+                localStorage.removeItem('groupName');
+                window.location.href = 'feedback.html';
+            } catch (error) {
+                console.error('Erro ao enviar o formulário:', error);
+                alert('Houve um erro ao enviar sua resposta.');
+            }
+        });
+
+        if (!localStorage.getItem('groupName')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

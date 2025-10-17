@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Território EV - Chevrolet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" id="cover-page">
+        <header>
+            <h1>TERRITÓRIO EV</h1>
+            <p>Além de Elétrico, Chevrolet.</p>
+        </header>
+        <main>
+            <button id="start-button" class="cta-button">Iniciar</button>
+        </main>
+    </div>
+
+    <div id="group-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2>Identificação do Grupo</h2>
+            <p>Por favor, insira o nome do seu grupo para continuar.</p>
+            <input type="text" id="group-name-input" placeholder="Digite o nome aqui">
+            <button id="submit-group-button" class="cta-button">Começar</button>
+        </div>
+    </div>
+
+    <script>
+        const startButton = document.getElementById('start-button');
+        const groupModal = document.getElementById('group-modal');
+        const submitGroupButton = document.getElementById('submit-group-button');
+        const groupNameInput = document.getElementById('group-name-input');
+
+        startButton.addEventListener('click', () => {
+            groupModal.style.display = 'flex';
+        });
+
+        submitGroupButton.addEventListener('click', () => {
+            const groupName = groupNameInput.value;
+            if (groupName.trim()) {
+                localStorage.setItem('groupName', groupName.trim());
+                window.location.href = 'audios.html';
+            } else {
+                alert('Por favor, insira o nome do grupo.');
+            }
+        });
+    </script>
+</body>
+</html>
