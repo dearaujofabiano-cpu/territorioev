@@ -57,3 +57,35 @@ header p { font-size: 1.2rem; font-weight: 300; color: #aaa; margin-bottom: 3rem
 .response-section { margin-top: 3rem; text-align: left; border-top: 1px solid var(--border-color); padding-top: 2rem; }
 .response-section label { display: block; font-size: 1.2rem; font-weight: 500; margin-bottom: 1rem; }
 .response-section textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background-color: #333; color: var(--text-color); font-size: 1rem; font-family: 'Roboto', sans-serif; resize: vertical; box-sizing: border-box; margin-bottom: 1.5rem; }
+/* --- ESTILOS PARA CAIXA DE RESUMO (REUTILIZADO) --- */
+.summary-box {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1.5rem 2rem;
+    text-align: left;
+    margin-top: 2rem;
+}
+
+.summary-box h3 {
+    margin-top: 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-item {
+    margin-bottom: 1.5rem;
+}
+
+.summary-item strong {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+.summary-item p {
+    margin: 0.5rem 0 0 0;
+    line-height: 1.6;
+    color: #ccc;
+    white-space: pre-wrap; /* Mantém as quebras de linha da resposta */
+}

@@ -7,12 +7,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" id="thank-you-page">
+    <div class="container" id="feedback-page">
         <header class="page-header">
             <h2>Resposta Enviada com Sucesso!</h2>
             <p>Obrigado pela sua participação no treinamento TERRITÓRIO EV.</p>
         </header>
+
+        <main class="summary-box">
+            <h3>Sua Análise Enviada:</h3>
+            
+            <div class="summary-item">
+                <strong>Grupo:</strong>
+                <p id="summary-group">Carregando...</p>
+            </div>
+            
+            <div class="summary-item">
+                <strong>Sua Resposta:</strong>
+                <p id="summary-response">Carregando...</p>
+            </div>
+        </main>
+        
         <a href="index.html" class="cta-button" style="margin-top: 2rem;">Voltar ao Início</a>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Usa a chave específica deste projeto
+            const lastSubmission = JSON.parse(localStorage.getItem('lastSubmissionTerritorio')); 
+
+            if (lastSubmission) {
+                document.getElementById('summary-group').textContent = lastSubmission.group;
+                document.getElementById('summary-response').textContent = lastSubmission.response;
+
+                localStorage.removeItem('lastSubmissionTerritorio');
+            } else {
+                document.querySelector('.summary-box').innerHTML = "<p>Nenhuma resposta recente para exibir.</p>";
+            }
+        });
+    </script>
 </body>
 </html>

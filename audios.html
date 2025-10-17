@@ -82,13 +82,26 @@
             const formData = new FormData(form);
 
             try {
+                // Prepara os dados para a PÁGINA DE FEEDBACK
+                const submissionData = {
+                    group: document.getElementById('group-name-field').value,
+                    response: document.getElementById('client-response').value
+                };
+                localStorage.setItem('lastSubmissionTerritorio', JSON.stringify(submissionData)); // Usando chave diferente
+
+                // Envia os dados para o Google Forms
                 await fetch(formActionURL, {
                     method: 'POST',
                     mode: 'no-cors',
                     body: new URLSearchParams(formData)
                 });
+                
+                // Limpa os dados da sessão original
                 localStorage.removeItem('groupName');
+
+                // Redireciona para a página de feedback
                 window.location.href = 'feedback.html';
+
             } catch (error) {
                 console.error('Erro ao enviar o formulário:', error);
                 alert('Houve um erro ao enviar sua resposta.');
