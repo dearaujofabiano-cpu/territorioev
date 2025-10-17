@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header class="page-header">
-            <h2>Explore os Pilares do Território EV</h2>
+            <h2>Território EV</h2>
             <p>Clique em um dos temas abaixo para ouvir o conteúdo. Após ouvir, responda à pergunta final.</p>
         </header>
 
@@ -18,17 +18,14 @@
                 <h3>DESIGN</h3>
                 <p>Identidade Visual, interior ousado e a tecnologia da central multimídia.</p>
             </div>
-
             <div class="content-card" data-audio-src="especificacoes.m4a" data-title="ESPECIFICAÇÕES TÉCNICAS">
                 <h3>ESPECIFICAÇÕES TÉCNICAS</h3>
                 <p>Desempenho, agilidade, boa autonomia para Uso Urbano, capacidade da bateria e carga rápida para viagens.</p>
             </div>
-
             <div class="content-card" data-audio-src="seguranca.m4a" data-title="RECURSOS DE SEGURANÇA">
                 <h3>RECURSOS DE SEGURANÇA</h3>
                 <p>Recursos básicos de segurança, sistemas de assistência ao trânsito e os Sistemas Avançados de Condução.</p>
             </div>
-
             <div class="content-card" data-audio-src="conforto.m4a" data-title="CONFORTO E CONVENIÊNCIA">
                 <h3>CONFORTO E CONVENIÊNCIA</h3>
                 <p>Silêncio e o conforto na rodagem, praticidade e tecnologias de acesso ao veículo e interior com conforto climático.</p>
@@ -37,41 +34,34 @@
 
         <form id="response-form" class="response-section">
             <label for="client-response">Quais são os diferenciais do BYD Yuan Plus e como devemos argumentá-los?</label>
-            <textarea id="client-response" name="entry.XXXXXX" rows="8" required placeholder="Digite sua análise aqui..."></textarea>
-            <input type="hidden" id="group-name-field" name="entry.YYYYYY">
+            <textarea id="client-response" name="entry.1834364074" rows="8" required placeholder="Digite sua análise aqui..."></textarea>
+            <input type="hidden" id="group-name-field" name="entry.1615334423">
             <button type="submit" class="cta-button">Enviar Resposta</button>
         </form>
     </div>
 
     <div id="audio-player-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content audio-modal">
-           <h2 id="audio-title"></h2> <div class="equalizer-container">
-                <div class="equalizer-bar"></div>
-                <div class="equalizer-bar"></div>
-                <div class="equalizer-bar"></div>
-                <div class="equalizer-bar"></div>
-                <div class="equalizer-bar"></div>
+           <h2 id="audio-title"></h2>
+           <div class="equalizer-container">
+                <div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div>
             </div>
-            <audio id="audio-player" controls></audio> <button id="close-modal-button" class="cta-button">Fechar</button>
+            <audio id="audio-player" controls></audio>
+            <button id="close-modal-button" class="cta-button">Fechar</button>
         </div>
     </div>
+
     <script>
         const equalizerContainer = document.querySelector('.equalizer-container');
         const audioModal = document.getElementById('audio-player-modal');
-        const audioPlayer = document.getElementById('audio-player'); // Agora só pega o único player
+        const audioPlayer = document.getElementById('audio-player');
         const audioTitle = document.getElementById('audio-title');
         const form = document.getElementById('response-form');
         const closeModalButton = document.getElementById('close-modal-button');
 
-        audioPlayer.addEventListener('play', () => {
-            equalizerContainer.classList.add('playing');
-        });
-        audioPlayer.addEventListener('pause', () => {
-            equalizerContainer.classList.remove('playing');
-        });
-        audioPlayer.addEventListener('ended', () => {
-            equalizerContainer.classList.remove('playing');
-        });
+        audioPlayer.addEventListener('play', () => { equalizerContainer.classList.add('playing'); });
+        audioPlayer.addEventListener('pause', () => { equalizerContainer.classList.remove('playing'); });
+        audioPlayer.addEventListener('ended', () => { equalizerContainer.classList.remove('playing'); });
 
         document.querySelectorAll('.content-card').forEach(card => {
             card.addEventListener('click', () => {
@@ -91,18 +81,23 @@
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const groupName = localStorage.getItem('groupName');
-            document.getElementById('group-name-field').value = groupName || 'N/A';
+            const clientResponse = document.getElementById('client-response').value; 
+            
+            document.getElementById('group-name-field').value = groupName || 'N/A'; 
 
-            const formActionURL = 'https://docs.google.com/forms/d/e/1FAIpQLScHAhtXcOFyFK5DPWqBqUH4AQTuXrG8LuYSrOJdyxh1NJDdqw/viewform'; // MANTENHA SEU LINK AQUI
+            // SUA URL DE AÇÃO CORRIGIDA
+            const formActionURL = 'https://docs.google.com/forms/d/e/1FAIpQLScHAhtXcOFyFK5DPWqBqUH4AQTuXrG8LuYSrOJdyxh1NJDdqw/formResponse'; 
             const formData = new FormData(form);
 
             try {
+                // Salva dados para a página de feedback
                 const submissionData = {
-                    group: document.getElementById('entry.1615334423').value,
-                    response: document.getElementById('entry.1834364074').value
+                    group: groupName || 'N/A', 
+                    response: clientResponse 
                 };
                 localStorage.setItem('lastSubmissionTerritorio', JSON.stringify(submissionData));
 
+                // Envia dados para o Google Forms
                 await fetch(formActionURL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -110,6 +105,7 @@
                 });
 
                 localStorage.removeItem('groupName');
+                // Redireciona para a página de feedback
                 window.location.href = 'feedback.html';
 
             } catch (error) {
