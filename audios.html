@@ -93,13 +93,13 @@
             const groupName = localStorage.getItem('groupName');
             document.getElementById('group-name-field').value = groupName || 'N/A';
 
-            const formActionURL = 'URL_DO_SEU_FORMULARIO_AQUI/formResponse'; // MANTENHA SEU LINK AQUI
+            const formActionURL = 'https://docs.google.com/forms/d/e/1FAIpQLScHAhtXcOFyFK5DPWqBqUH4AQTuXrG8LuYSrOJdyxh1NJDdqw/viewform'; // MANTENHA SEU LINK AQUI
             const formData = new FormData(form);
 
             try {
                 const submissionData = {
-                    group: document.getElementById('group-name-field').value,
-                    response: document.getElementById('client-response').value
+                    group: document.getElementById('entry.1615334423').value,
+                    response: document.getElementById('entry.1834364074').value
                 };
                 localStorage.setItem('lastSubmissionTerritorio', JSON.stringify(submissionData));
 
