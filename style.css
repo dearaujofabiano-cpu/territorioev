@@ -89,3 +89,44 @@ header p { font-size: 1.2rem; font-weight: 300; color: #aaa; margin-bottom: 3rem
     color: #ccc;
     white-space: pre-wrap; /* Mantém as quebras de linha da resposta */
 }
+/* --- NOVOS ESTILOS PARA O EQUALIZADOR --- */
+.equalizer-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Alinha as barras na base */
+    height: 50px; /* Altura máxima das barras */
+    margin-bottom: 1.5rem; /* Espaço antes do player */
+    overflow: hidden;
+}
+
+.equalizer-bar {
+    width: 6px; /* Largura de cada barra */
+    height: 10%; /* Altura inicial */
+    margin: 0 3px; /* Espaçamento entre barras */
+    background-color: var(--primary-color);
+    border-radius: 3px 3px 0 0; /* Bordas arredondadas no topo */
+    animation-name: equalize;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    /* Animação começa pausada */
+    animation-play-state: paused; 
+}
+
+/* Define a animação das barras subindo e descendo */
+@keyframes equalize {
+    0%, 100% { height: 10%; }
+    50% { height: 100%; }
+}
+
+/* Faz cada barra ter um tempo de animação ligeiramente diferente */
+.equalizer-bar:nth-child(1) { animation-duration: 0.8s; }
+.equalizer-bar:nth-child(2) { animation-duration: 1.0s; }
+.equalizer-bar:nth-child(3) { animation-duration: 0.7s; }
+.equalizer-bar:nth-child(4) { animation-duration: 1.1s; }
+.equalizer-bar:nth-child(5) { animation-duration: 0.9s; }
+
+/* Classe que será adicionada via JS para rodar a animação */
+.equalizer-container.playing .equalizer-bar {
+    animation-play-state: running;
+}
