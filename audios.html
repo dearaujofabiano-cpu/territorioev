@@ -64,6 +64,7 @@
 	const audioModal = document.getElementById('audio-player-modal');
         const audioPlayer = document.getElementById('audio-player');
         const audioTitle = document.getElementById('audio-title');
+	const form = document.getElementById('response-form');
         const closeModalButton = document.getElementById('close-modal-button');
 // NOVO: Controla a animação do equalizador
         audioPlayer.addEventListener('play', () => {
@@ -77,7 +78,7 @@
         audioPlayer.addEventListener('ended', () => {
             equalizerContainer.classList.remove('playing');
         });        
-	const form = document.getElementById('response-form');
+	
 
         document.querySelectorAll('.content-card').forEach(card => {
             card.addEventListener('click', () => {
